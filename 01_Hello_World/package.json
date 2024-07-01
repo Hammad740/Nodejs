@@ -1,0 +1,16 @@
+{
+  "name": "01_hello_world",
+  "version": "1.0.0",
+  "description": "this is the basics of nodejs",
+  "main": "hello.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node hello.js"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "hammad",
+  "license": "ISC"
+}
