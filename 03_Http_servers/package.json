@@ -11,5 +11,8 @@
     "servers"
   ],
   "author": "hammad",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "url": "^0.11.3"
+  }
 }
