@@ -1,13 +1,13 @@
 {
   "name": "06_project1",
   "version": "1.0.0",
-  "description": "rest api ",
+  "description": "this is a basic restful api",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
+    "rest",
     "api"
   ],
   "author": "hammad",
