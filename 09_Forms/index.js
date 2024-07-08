@@ -4,6 +4,8 @@ import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import cookieParser from 'cookie-parser';
 app.use(express.json());
+import * as fs from 'node:fs';
+
 //// This middleware is used to parse incoming requests with JSON payloads.
 app.use(express.urlencoded({ extended: true }));
 ////  This middleware is used to parse incoming requests with URL-encoded payloads (typically from HTML form submissions)
@@ -14,8 +16,12 @@ const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.render('index', { message: 'This is the message' });
+  fs.readdir(`./files`, (err, files) => {
+    res.render('index', { files: files });
+  });
 });
+
+app.post('/create', (req, res) => {});
 
 const PORT = 3000;
 app.listen(PORT, () =>

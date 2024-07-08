@@ -4,10 +4,51 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/stylesheets/style.css" />
-    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .placeholder-white::placeholder {
+        color: #ffffff;
+      }
+    </style>
+    <title>Notes</title>
   </head>
-  <body>
-    <h1 style="background-color: blueviolet">Hello this is ejs</h1>
-    <h1><%=message%></h1>
+  <body class="w-full min-h-screen bg-zinc-900 text-white">
+    <main class="p-10">
+      <section class="mb-10">
+        <form action="/create" method="post">
+          <input
+            class="block w-full px-5 py-2 mt-3 bg-zinc-800 rounded-lg outline-none placeholder-white"
+            type="text"
+            placeholder="Title goes here..."
+          />
+          <textarea
+            class="block w-full px-5 py-2 mt-3 bg-zinc-800 rounded-lg outline-none resize-none placeholder-white"
+            placeholder="Write your task detail..."
+          ></textarea>
+          <input
+            type="submit"
+            class="block w-4/3 px-5 py-2 mt-3 bg-blue-600 rounded-lg cursor-pointer hover:bg-blue-700 transition duration-200 text-lg"
+            value="Create Task"
+          />
+        </form>
+      </section>
+      <section class="flex flex-wrap gap-3">
+        <% if (files.length > 0) { %> <% files.forEach((val) => { %>
+        <!-- Your code for each file goes here -->
+        <div
+          class="task w-72 p-4 bg-zinc-800 rounded-lg transition-transform transform hover:scale-105 hover:shadow-lg hover:bg-zinc-700"
+        >
+          <h1 class="text-3xl">Some task here</h1>
+          <a
+            href="#"
+            class="inline-block mt-3 text-blue-500 hover:text-blue-400"
+            >Read More</a
+          >
+        </div>
+        <% }) %> <% } else { %>
+        <h3 class="text-zinc-500 text-xl">No task yet</h3>
+        <% } %>
+      </section>
+    </main>
   </body>
 </html>
