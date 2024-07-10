@@ -20,8 +20,30 @@ app.get('/', (req, res) => {
     res.render('index', { files: files });
   });
 });
+app.get('/files/:filename', (req, res) => {
+  fs.readFile(`./files/${req.params.filename}`, 'utf-8', (err, fileData) => {
+    if (err) throw err;
+    res.render('show', { fileName: req.params.filename, fileData: fileData });
+  });
+});
 
-app.post('/create', (req, res) => {});
+app.get('/edit/:filename', (req, res) => {
+  res.render('edit', { fileName: req.params.filename });
+});
+app.post('/create', (req, res) => {
+  fs.writeFile(
+    `./files/${req.body.title.split(' ').join('')}.txt`,
+    `${req.body.details}`,
+    (err) => console.log(err)
+  );
+  res.redirect('/');
+});
+
+app.post('/edit', (req, res) => {
+  fs.rename(`./files/${req.body.previous}`, `./files/${req.body.new}`, (err) =>
+    res.redirect('/')
+  );
+});
 
 const PORT = 3000;
 app.listen(PORT, () =>

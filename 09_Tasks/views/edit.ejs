@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .placeholder-white::placeholder {
+        color: #ffffff;
+      }
+    </style>
+    <title>Notes</title>
+  </head>
+  <body class="w-full min-h-screen bg-zinc-900 text-white">
+    <main class="p-10">
+      <a class="text-blue-500 inline-block mb-10" href="/">Go Back to Home</a>
+      <form action="/edit" method="post">
+        <input
+          class="block w-3/4 px-5 py-2 mt-3 bg-zinc-800 rounded-lg outline-none placeholder-white"
+          type="text"
+          placeholder="Previous name..."
+          name="previous"
+          value="<%= fileName %>"
+        />
+        <input
+          class="block w-3/4 px-5 py-2 mt-3 bg-zinc-800 rounded-lg outline-none placeholder-white"
+          type="text"
+          placeholder="New name..."
+          name="new"
+        />
+
+        <input
+          type="submit"
+          class="block w-4/3 px-5 py-2 mt-3 bg-yellow-600 rounded-lg cursor-pointer hover:bg-yellow-700 transition duration-200 text-lg"
+          value="Edit"
+        />
+      </form>
+    </main>
+  </body>
+</html>

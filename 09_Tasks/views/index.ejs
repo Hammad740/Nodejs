@@ -17,13 +17,15 @@
       <section class="mb-10">
         <form action="/create" method="post">
           <input
-            class="block w-full px-5 py-2 mt-3 bg-zinc-800 rounded-lg outline-none placeholder-white"
+            class="block w-3/4 px-5 py-2 mt-3 bg-zinc-800 rounded-lg outline-none placeholder-white"
             type="text"
             placeholder="Title goes here..."
+            name="title"
           />
           <textarea
-            class="block w-full px-5 py-2 mt-3 bg-zinc-800 rounded-lg outline-none resize-none placeholder-white"
+            class="block w-3/4 px-5 py-2 mt-3 bg-zinc-800 rounded-lg outline-none resize-none placeholder-white"
             placeholder="Write your task detail..."
+            name="details"
           ></textarea>
           <input
             type="submit"
@@ -34,16 +36,21 @@
       </section>
       <section class="flex flex-wrap gap-3">
         <% if (files.length > 0) { %> <% files.forEach((val) => { %>
-        <!-- Your code for each file goes here -->
+
         <div
           class="task w-72 p-4 bg-zinc-800 rounded-lg transition-transform transform hover:scale-105 hover:shadow-lg hover:bg-zinc-700"
         >
-          <h1 class="text-3xl">Some task here</h1>
-          <a
-            href="#"
-            class="inline-block mt-3 text-blue-500 hover:text-blue-400"
-            >Read More</a
-          >
+          <h1 class="text-3xl"><%= val %></h1>
+          <div class="flex justify-between items-center mt-3">
+            <a
+              href="/files/<%= val %>"
+              class="inline-block text-blue-500 hover:text-blue-400"
+              >Read More</a
+            >
+            <a href="/edit/<%= val %>" class="text-zinc-400 hover:text-zinc-300"
+              >Edit filename</a
+            >
+          </div>
         </div>
         <% }) %> <% } else { %>
         <h3 class="text-zinc-500 text-xl">No task yet</h3>
