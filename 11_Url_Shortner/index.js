@@ -2,9 +2,9 @@ import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import urlRoute from './routes/url.js';
+import myStaticRoute from './routes/static.js';
 import connectToDatabase from './connect.js';
 import Url from './models/url.js';
-
 const app = express();
 const PORT = 3000;
 
@@ -17,12 +17,14 @@ const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Database connection (assuming connectToDatabase handles errors)
 connectToDatabase('mongodb://localhost:27017/urlShortener');
 
 // Mount routes
 app.use('/url', urlRoute);
+app.use('/', myStaticRoute);
 
 app.get('/url/:shortId', async (req, res) => {
   const shortId = req.params.shortId;
@@ -43,12 +45,6 @@ app.get('/url/:shortId', async (req, res) => {
   }
 });
 
-app.get('/testing', async (req, res) => {
-  const allUrls = await Url.find({});
-  res.render('home', { allUrls });
-});
-
-// Start the server
 app.listen(PORT, () =>
   console.log(`Server is listening on ${PORT} successfully!`)
 );

@@ -1,18 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <style>
+      body {
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        background-color: #f0f2f5;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1 {
+        color: #333;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 800px;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      form {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        font-size: 1.2em;
+        margin-bottom: 10px;
+      }
+
+      input[type='text'] {
+        width: 100%;
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+
+      button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 1em;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      .generated-url {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+        background-color: #e7f3ff;
+        padding: 10px;
+        border-left: 5px solid #007bff;
+        border-radius: 5px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #007bff;
+        color: #fff;
+        border-bottom: 2px solid #0056b3;
+      }
+
+      td a {
+        color: #007bff;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      td a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+      }
+    </style>
     <meta charset="UTF-8" />
-    <title>All URLs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortener</title>
   </head>
   <body>
-    <h1>All URLs</h1>
-    <ul>
-      <% for (const url of allUrls) { %>
-      <li>
-        <a href="<%= url.redirectUrl %>"><%= url.redirectUrl %></a>
-        (Visits: <%= url.visitHistory.length %>)
-      </li>
+    <div class="container">
+      <h1>URL Shortener</h1>
+      <% if (typeof id !== 'undefined') { %>
+      <div class="generated-url">
+        URL Generated:
+        <a href="http://localhost:3000/url/<%= id %>"
+          >http://localhost:3000/url/<%= id %></a
+        >
+      </div>
       <% } %>
-    </ul>
+      <form action="/url" method="post">
+        <label for="url">Enter your Original URL</label>
+        <input
+          type="text"
+          id="url"
+          name="url"
+          placeholder="https://example.com"
+          required
+        />
+        <button type="submit">Submit</button>
+      </form>
+      <% if (typeof urls !== 'undefined' && urls.length > 0) { %>
+      <table>
+        <thead>
+          <tr>
+            <th>Serial No.</th>
+            <th>ShortID</th>
+            <th>Redirect</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% urls.forEach((url, index) => { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= url.shortId %></td>
+            <td><a href="<%= url.redirectUrl %>"><%= url.redirectUrl %></a></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% } %>
+    </div>
   </body>
 </html>
