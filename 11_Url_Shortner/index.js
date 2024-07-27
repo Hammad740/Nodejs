@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import urlRoute from './routes/url.js';
 import myStaticRoute from './routes/static.js';
+import userRoute from './routes/user.js';
 import connectToDatabase from './connect.js';
 import Url from './models/url.js';
 const app = express();
@@ -24,6 +25,7 @@ connectToDatabase('mongodb://localhost:27017/urlShortener');
 
 // Mount routes
 app.use('/url', urlRoute);
+app.use('/user', userRoute);
 app.use('/', myStaticRoute);
 
 app.get('/url/:shortId', async (req, res) => {
