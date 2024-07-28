@@ -6,6 +6,8 @@ import myStaticRoute from './routes/static.js';
 import userRoute from './routes/user.js';
 import connectToDatabase from './connect.js';
 import Url from './models/url.js';
+import cookieParser from 'cookie-parser';
+import restrictedToLoggedInUserOnly from './middleware/auth.js';
 const app = express();
 const PORT = 3000;
 
@@ -19,12 +21,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cookieParser());
 // Database connection (assuming connectToDatabase handles errors)
 connectToDatabase('mongodb://localhost:27017/urlShortener');
 
 // Mount routes
-app.use('/url', urlRoute);
+app.use('/url', restrictedToLoggedInUserOnly, urlRoute);
 app.use('/user', userRoute);
 app.use('/', myStaticRoute);
 
